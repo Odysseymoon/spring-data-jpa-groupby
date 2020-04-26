@@ -1,0 +1,49 @@
+logging:
+  level:
+    root: DEBUG
+    org.springframework.web.reactive.function.client.ExchangeFunctions: DEBUG
+    org.hibernate.type.descriptor.sql: trace
+  file:
+    path: target/logs
+
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: local
+  datasource:
+    hikari:
+      minimum-idle: 3
+      maximum-pool-size: 10
+      connection-timeout: 30000
+      idle-timeout: 600000
+      validation-timeout: 40000
+    sql-script-encoding: UTF-8
+    initialization-mode: always
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate.show_sql: true
+      hibernate.use_sql_comments: true
+      hibernate.format_sql: true
+      hibernate.query.in_clause_parameter_padding: true
+    open-in-view: false
+  jackson:
+    default-property-inclusion: non_empty
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+
+#local
+---
+spring:
+  profiles: local
+  datasource:
+    url: jdbc:mysql://localhost:13306/testDB?useUnicode=yes&characterEncoding=UTF-8
+    username: testUser
+    password: testPassword
+    driver-class-name: com.mysql.cj.jdbc.Driver
