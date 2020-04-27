@@ -31,5 +31,4 @@ public class Report {
 
     private BigDecimal loanTotal;
 
-
 }
